@@ -1,0 +1,699 @@
+/* ==============================
+   全体
+============================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 15px;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #f4f6f8;
+    color: #222;
+}
+
+
+/* ==============================
+   メイン画面
+============================== */
+
+.container {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+
+    background: white;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ==============================
+   タイトル
+============================== */
+
+h1 {
+    margin-top: 0;
+    margin-bottom: 30px;
+
+    text-align: center;
+
+    font-size: 28px;
+}
+
+
+/* ==============================
+   入力エリア
+============================== */
+
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+
+/* ラベル */
+
+label {
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+
+/* ==============================
+   入力欄
+============================== */
+
+select,
+input[type="number"],
+input[type="text"] {
+
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #d5d9de;
+
+    border-radius: 10px;
+
+    background: white;
+
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+/* 入力欄をクリックしたとき */
+
+select:focus,
+input:focus {
+
+    border-color: #333;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 0, 0, 0.05);
+}
+
+
+/* ==============================
+   見出し
+============================== */
+
+h2 {
+    margin-top: 35px;
+    margin-bottom: 15px;
+
+    font-size: 21px;
+
+    border-left: 5px solid #222;
+
+    padding-left: 10px;
+}
+
+
+h3 {
+    margin-top: 20px;
+}
+
+
+/* ==============================
+   ボタン
+============================== */
+
+button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 11px 16px;
+
+    font-size: 15px;
+
+    cursor: pointer;
+
+    background: #222;
+
+    color: white;
+
+    transition:
+        transform 0.1s,
+        opacity 0.1s;
+}
+
+/* ==============================
+   メニューボタン
+============================== */
+
+.menu-item button {
+
+    margin-top: 10px;
+
+    margin-right: 5px;
+
+    padding: 8px 12px;
+
+    font-size: 13px;
+
+    background: #eeeeee;
+
+    color: #333;
+
+}
+
+
+/* マウスを乗せたとき */
+
+.menu-item button:hover {
+
+    background: #dddddd;
+
+}
+
+
+/* 削除ボタン */
+
+.menu-item .delete-button {
+
+    background: #333;
+
+    color: white;
+
+}
+
+
+/* 削除ボタンにマウスを乗せたとき */
+
+.menu-item .delete-button:hover {
+
+    background: #111;
+
+}
+
+/* ボタンにマウスを乗せたとき */
+
+button:hover {
+    opacity: 0.85;
+}
+
+
+/* ボタンを押したとき */
+
+button:active {
+    transform: scale(0.97);
+}
+
+
+/* ==============================
+   メニュー一覧
+============================== */
+
+.menu-item {
+
+    margin-bottom: 14px;
+
+    padding: 18px;
+
+    background: white;
+
+    border: 1px solid #e1e5e8;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 12px rgba(0, 0, 0, 0.05);
+
+    position: relative;
+}
+
+
+/* メニュー名 */
+
+.menu-item strong {
+
+    display: block;
+
+    font-size: 18px;
+
+    margin-bottom: 8px;
+}
+
+
+/* メニューの詳細 */
+
+.menu-item br {
+
+    line-height: 1.8;
+}
+
+
+/* ==============================
+   削除ボタン
+============================== */
+
+.delete-button {
+
+    margin-top: 8px;
+
+}
+
+
+/* ==============================
+   メニュー管理
+============================== */
+
+#menuManager {
+
+    margin-top: 25px;
+
+    padding: 20px;
+
+    background: #f8f9fa;
+
+    border-radius: 15px;
+
+    border: 1px solid #e3e6e8;
+}
+
+
+/* ==============================
+   スマホ用
+============================== */
+/* ==============================
+   スマホ対応
+============================== */
+
+@media (max-width: 600px) {
+
+    body {
+
+        padding: 8px;
+
+        font-size: 15px;
+
+    }
+
+
+    /* メインカード */
+
+    .container {
+
+        width: 100%;
+
+        padding: 18px 14px;
+
+        border-radius: 14px;
+
+        box-shadow: none;
+
+    }
+
+
+    /* タイトル */
+
+    h1 {
+
+        font-size: 22px;
+
+        margin-bottom: 22px;
+
+    }
+
+
+    /* 見出し */
+
+    h2 {
+
+        font-size: 19px;
+
+        margin-top: 28px;
+
+    }
+
+
+    /* 入力欄 */
+
+    select,
+    input[type="number"],
+    input[type="text"] {
+
+        min-height: 48px;
+
+        font-size: 16px;
+
+        padding: 10px 12px;
+
+    }
+
+
+    /* ボタン */
+
+    button {
+
+        min-height: 46px;
+
+        font-size: 15px;
+
+    }
+
+
+    /* メニュー追加ボタン */
+
+    .input-area > button {
+
+        margin-top: 8px;
+
+    }
+
+
+    /* 練習メニューカード */
+
+    .menu-item {
+
+        padding: 15px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .menu-item strong {
+
+        font-size: 17px;
+
+    }
+
+
+    /* メニュー操作ボタン */
+
+    .menu-item button {
+
+        min-height: 40px;
+
+        padding: 7px 10px;
+
+        margin-top: 8px;
+
+        margin-right: 3px;
+
+        width: auto;
+
+        font-size: 13px;
+
+    }
+
+
+    /* 全部クリア */
+
+    button[onclick="clearTrainingMenus()"] {
+
+        width: 100%;
+
+        margin-top: 12px;
+
+    }
+
+
+    /* コピー */
+
+    button[onclick="copyTrainingMenu()"] {
+
+        width: 100%;
+
+        margin-top: 10px;
+
+    }
+
+
+    /* 時間表示 */
+
+    .time-summary {
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 8px;
+
+    }
+
+
+    .time-box {
+
+        padding: 15px 8px;
+
+    }
+
+
+    .time-value {
+
+        font-size: 25px;
+
+    }
+
+
+    /* メニュー管理 */
+
+    #menuManager {
+
+        padding: 15px;
+
+        border-radius: 14px;
+
+    }
+
+
+    /* 登録メニュー */
+
+    #managerMenuList > div {
+
+        padding: 10px;
+
+    }
+
+}
+
+/* ==============================
+   メニュー番号
+============================== */
+
+.menu-title {
+
+    display: flex !important;
+
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.menu-number {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 32px;
+
+    height: 32px;
+
+    border-radius: 50%;
+
+    background: #222;
+
+    color: white;
+
+    font-size: 15px;
+
+    flex-shrink: 0;
+}
+/* ==============================
+   メニュー管理
+============================== */
+
+#menuManager {
+
+    margin-top: 15px;
+
+    padding: 20px;
+
+    background: #f8f9fa;
+
+    border: 1px solid #e1e5e8;
+
+    border-radius: 16px;
+}
+
+
+/* メニュー管理の見出し */
+
+#menuManager h2 {
+
+    margin-top: 0;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* メニュー管理の入力欄 */
+
+#menuManager input[type="text"] {
+
+    margin-top: 5px;
+
+    margin-bottom: 10px;
+
+}
+
+
+/* メニュー管理のカテゴリー */
+
+#managerCategory {
+
+    margin-top: 5px;
+
+    margin-bottom: 15px;
+
+}
+
+
+/* 登録メニュー */
+
+#managerMenuList > div {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    padding: 10px 12px;
+
+    margin-bottom: 8px;
+
+    background: white;
+
+    border: 1px solid #e1e5e8;
+
+    border-radius: 10px;
+
+}
+
+
+/* 登録メニューの削除ボタン */
+
+#managerMenuList button {
+
+    padding: 6px 10px;
+
+    font-size: 13px;
+
+    background: #eeeeee;
+
+    color: #333;
+
+    flex-shrink: 0;
+
+}
+
+
+/* ==============================
+   メニュー管理ボタン
+============================== */
+
+button[onclick="openMenuManager()"] {
+
+    width: 100%;
+
+    margin-bottom: 15px;
+
+    background: #f0f1f2;
+
+    color: #333;
+
+    border: 1px solid #ddd;
+
+}
+
+
+/* マウスを乗せたとき */
+
+button[onclick="openMenuManager()"]:hover {
+
+    background: #e5e6e8;
+
+}
+
+/* ==============================
+   ドラッグ＆ドロップ
+============================== */
+
+.menu-item {
+
+    cursor: grab;
+
+}
+
+
+.menu-item:active {
+
+    cursor: grabbing;
+
+}
+
+
+/* ドラッグしているカード */
+
+.menu-item.dragging {
+
+    opacity: 0.5;
+
+    transform: scale(0.98);
+
+}
+/* ==============================
+   メニュー詳細
+============================== */
+
+.menu-detail-area {
+    margin-top: 6px;
+}
+
+.detail-button {
+    border: none;
+    background: none;
+    padding: 2px 0;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+}
+
+.detail-button:hover {
+    color: #222;
+}
+
+.menu-detail {
+    margin-top: 6px;
+    padding: 8px 10px;
+    background: #f5f5f5;
+    border-radius: 6px;
+    font-size: 13px;
+    color: #555;
+}

@@ -131,6 +131,21 @@
 <button onclick="copyTrainingMenu()">
     📋 練習メニューをコピー
 </button>
+<button onclick="saveTrainingMenu()">
+    💾 練習メニューを保存
+</button>
+
+<button onclick="toggleSavedMenus()">
+    📁 保存メニュー
+</button>
+
+<div id="savedMenuArea" style="display: none;">
+
+    <h3>📁 保存した練習メニュー</h3>
+
+    <div id="savedMenuList"></div>
+
+</div>
 
 <button onclick="clearTrainingMenus()">
     🗑️ 全部クリア

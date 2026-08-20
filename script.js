@@ -484,7 +484,8 @@ function displayMenus() {
     document.getElementById(
         "remainingTime"
     ).textContent = remainingTime;
-
+enableTouchMenuDrag();
+enableTouchCategoryDrag();
 }
 
 
@@ -1290,3 +1291,730 @@ function loadCategories() {
 
 // ページを開いたときに実行
 loadCategories();
+displaySavedMenus();
+// ==============================
+// 練習メニューを名前付きで保存
+// ==============================
+
+function saveTrainingMenu() {
+
+    // 練習メニューがない場合
+    if (trainingMenus.length === 0) {
+
+        alert("保存する練習メニューがありません");
+
+        return;
+
+    }
+
+    // 保存する名前を入力
+    const name = prompt(
+        "この練習メニューに名前を付けてください",
+        "通常練習"
+    );
+
+    // キャンセル
+    if (name === null) {
+        return;
+    }
+
+    // 空欄
+    if (!name.trim()) {
+
+        alert("名前を入力してください");
+
+        return;
+
+    }
+
+    // 現在の練習メニューをコピー
+    const savedMenu = {
+
+        id: Date.now().toString(),
+
+        name: name.trim(),
+
+        menus: JSON.parse(
+            JSON.stringify(trainingMenus)
+        )
+
+    };
+
+    // すでに保存されているメニューを取得
+    let savedTrainingMenus =
+        JSON.parse(
+            localStorage.getItem("savedTrainingMenus")
+        ) || [];
+
+
+    // 保存
+    savedTrainingMenus.push(savedMenu);
+
+
+    localStorage.setItem(
+        "savedTrainingMenus",
+        JSON.stringify(savedTrainingMenus)
+    );
+
+
+    // 保存一覧を更新
+    displaySavedMenus();
+
+
+    alert(
+        "「" +
+        savedMenu.name +
+        "」として保存しました！"
+    );
+
+}
+// ==============================
+// 練習メニューを名前付きで保存
+// ==============================
+
+function saveTrainingMenu() {
+
+    // 練習メニューがない場合
+    if (trainingMenus.length === 0) {
+
+        alert("保存する練習メニューがありません");
+
+        return;
+
+    }
+
+
+    // 名前を入力
+    const name = prompt(
+        "この練習メニューに名前を付けてください",
+        "通常練習"
+    );
+
+
+    // キャンセル
+    if (name === null) {
+        return;
+    }
+
+
+    // 空欄
+    if (!name.trim()) {
+
+        alert("名前を入力してください");
+
+        return;
+
+    }
+
+
+    // 現在の練習メニューをコピー
+    const savedMenu = {
+
+        id: Date.now().toString(),
+
+        name: name.trim(),
+
+        menus: JSON.parse(
+            JSON.stringify(trainingMenus)
+        )
+
+    };
+
+
+    // 保存済みメニューを取得
+    let savedTrainingMenus =
+        JSON.parse(
+            localStorage.getItem("savedTrainingMenus")
+        ) || [];
+
+
+    // 追加
+    savedTrainingMenus.push(savedMenu);
+
+
+    // 保存
+    localStorage.setItem(
+        "savedTrainingMenus",
+        JSON.stringify(savedTrainingMenus)
+    );
+
+
+    alert(
+        "「" +
+        savedMenu.name +
+        "」として保存しました！"
+    );
+
+}
+// ==============================
+// 保存した練習メニューを表示
+// ==============================
+
+function displaySavedMenus() {
+
+    const list =
+        document.getElementById("savedMenuList");
+
+    if (!list) {
+        return;
+    }
+
+    list.innerHTML = "";
+
+    const savedTrainingMenus =
+        JSON.parse(
+            localStorage.getItem("savedTrainingMenus")
+        ) || [];
+
+
+    // 保存されたメニューがない場合
+    if (savedTrainingMenus.length === 0) {
+
+        list.innerHTML =
+            "<p>保存された練習メニューはありません</p>";
+
+        return;
+
+    }
+
+
+    savedTrainingMenus.forEach(function(savedMenu) {
+
+        const div =
+            document.createElement("div");
+
+        div.className = "saved-menu-item";
+
+
+        div.innerHTML = `
+
+            <strong>
+                ${savedMenu.name}
+            </strong>
+
+            <button
+                onclick="loadSavedMenu('${savedMenu.id}')">
+
+                ▶ 読み込む
+
+            </button>
+
+            <button
+                onclick="duplicateSavedMenu('${savedMenu.id}')">
+
+                📋 複製
+
+            </button>
+
+            <button
+                onclick="deleteSavedMenu('${savedMenu.id}')">
+
+                🗑️ 削除
+
+            </button>
+
+        `;
+
+
+        list.appendChild(div);
+
+    });
+
+}
+// ==============================
+// 保存した練習メニューを読み込む
+// ==============================
+
+function loadSavedMenu(id) {
+
+    const savedTrainingMenus =
+        JSON.parse(
+            localStorage.getItem("savedTrainingMenus")
+        ) || [];
+
+
+    // 指定された保存メニューを探す
+    const savedMenu =
+        savedTrainingMenus.find(function(item) {
+
+            return item.id === id;
+
+        });
+
+
+    if (!savedMenu) {
+
+        alert("保存された練習メニューが見つかりません");
+
+        return;
+
+    }
+
+
+    // 現在の練習メニューを置き換える
+    trainingMenus =
+        JSON.parse(
+            JSON.stringify(savedMenu.menus)
+        );
+
+
+    // 現在の練習メニューを保存
+    localStorage.setItem(
+        "trainingMenus",
+        JSON.stringify(trainingMenus)
+    );
+
+
+    // 画面を更新
+    displayMenus();
+
+
+    alert(
+        "「" +
+        savedMenu.name +
+        "」を読み込みました！"
+    );
+
+}
+// ==============================
+// 保存した練習メニューを複製
+// ==============================
+
+function duplicateSavedMenu(id) {
+
+    const savedTrainingMenus =
+        JSON.parse(
+            localStorage.getItem("savedTrainingMenus")
+        ) || [];
+
+
+    // 複製するメニューを探す
+    const savedMenu =
+        savedTrainingMenus.find(function(item) {
+
+            return item.id === id;
+
+        });
+
+
+    if (!savedMenu) {
+
+        alert("保存された練習メニューが見つかりません");
+
+        return;
+
+    }
+
+
+    // 保存データをコピー
+    trainingMenus =
+        JSON.parse(
+            JSON.stringify(savedMenu.menus)
+        );
+
+
+    // IDを全部作り直す
+    trainingMenus.forEach(function(item) {
+
+        item.id =
+            Date.now().toString() +
+            Math.random().toString(36).substring(2);
+
+    });
+
+
+    // 現在の練習メニューとして保存
+    localStorage.setItem(
+        "trainingMenus",
+        JSON.stringify(trainingMenus)
+    );
+
+
+    // 画面を更新
+    displayMenus();
+
+
+    alert(
+        "「" +
+        savedMenu.name +
+        "」を複製しました！\n\n" +
+        "このメニューを自由に編集できます。"
+    );
+
+}
+// ==============================
+// 保存した練習メニューを削除
+// ==============================
+
+function deleteSavedMenu(id) {
+
+    let savedTrainingMenus =
+        JSON.parse(
+            localStorage.getItem("savedTrainingMenus")
+        ) || [];
+
+
+    const savedMenu =
+        savedTrainingMenus.find(function(item) {
+
+            return item.id === id;
+
+        });
+
+
+    if (!savedMenu) {
+
+        alert("保存された練習メニューが見つかりません");
+
+        return;
+
+    }
+
+
+    const answer =
+        confirm(
+            "「" +
+            savedMenu.name +
+            "」を削除しますか？"
+        );
+
+
+    if (!answer) {
+        return;
+    }
+
+
+    // 削除
+    savedTrainingMenus =
+        savedTrainingMenus.filter(function(item) {
+
+            return item.id !== id;
+
+        });
+
+
+    // 保存
+    localStorage.setItem(
+        "savedTrainingMenus",
+        JSON.stringify(savedTrainingMenus)
+    );
+
+
+    // 一覧を更新
+    displaySavedMenus();
+
+}
+// ==============================
+// 保存メニューの表示・非表示
+// ==============================
+
+function toggleSavedMenus() {
+
+    const area =
+        document.getElementById("savedMenuArea");
+
+    if (area.style.display === "none") {
+
+        area.style.display = "block";
+
+        displaySavedMenus();
+
+    } else {
+
+        area.style.display = "none";
+
+    }
+
+}
+// ==============================
+// スマホ用：メニューの長押しドラッグ
+// ==============================
+
+function enableTouchMenuDrag() {
+
+    const menuItems =
+        document.querySelectorAll(".menu-item");
+
+    menuItems.forEach(function(menuItem) {
+
+        let timer = null;
+        let isDragging = false;
+
+
+        // 長押し開始
+        menuItem.addEventListener(
+            "touchstart",
+            function(e) {
+
+                timer = setTimeout(function() {
+
+                    isDragging = true;
+
+                    menuItem.classList.add(
+                        "dragging-touch"
+                    );
+
+                }, 450);
+
+            },
+            { passive: true }
+        );
+
+
+        // 指を動かす
+        menuItem.addEventListener(
+            "touchmove",
+            function(e) {
+
+                if (!isDragging) {
+                    return;
+                }
+
+                e.preventDefault();
+
+
+                const touch =
+                    e.touches[0];
+
+
+                const menuArea =
+                    menuItem.parentElement;
+
+
+                const otherMenus =
+                    [
+                        ...menuArea.querySelectorAll(
+                            ".menu-item:not(.dragging-touch)"
+                        )
+                    ];
+
+
+                const afterElement =
+                    otherMenus.find(function(menu) {
+
+                        const box =
+                            menu.getBoundingClientRect();
+
+                        return (
+                            touch.clientY <
+                            box.top +
+                            box.height / 2
+                        );
+
+                    });
+
+
+                if (afterElement) {
+
+                    menuArea.insertBefore(
+                        menuItem,
+                        afterElement
+                    );
+
+                } else {
+
+                    menuArea.appendChild(
+                        menuItem
+                    );
+
+                }
+
+            },
+            { passive: false }
+        );
+
+
+        // 指を離す
+        menuItem.addEventListener(
+            "touchend",
+            function() {
+
+                clearTimeout(timer);
+
+
+                if (!isDragging) {
+                    return;
+                }
+
+
+                isDragging = false;
+
+
+                menuItem.classList.remove(
+                    "dragging-touch"
+                );
+
+
+                updateTrainingOrder();
+
+            }
+        );
+
+
+        // 長押しをキャンセル
+        menuItem.addEventListener(
+            "touchcancel",
+            function() {
+
+                clearTimeout(timer);
+
+                isDragging = false;
+
+                menuItem.classList.remove(
+                    "dragging-touch"
+                );
+
+            }
+        );
+
+    });
+
+}
+// ==============================
+// スマホ用：カテゴリーの長押しドラッグ
+// ==============================
+
+function enableTouchCategoryDrag() {
+
+    const categories =
+        document.querySelectorAll(".training-category");
+
+    categories.forEach(function(categoryDiv) {
+
+        let timer = null;
+        let isDragging = false;
+
+
+        // 長押し開始
+        categoryDiv.addEventListener(
+            "touchstart",
+            function(e) {
+
+                timer = setTimeout(function() {
+
+                    isDragging = true;
+
+                    categoryDiv.classList.add(
+                        "dragging-touch"
+                    );
+
+                }, 450);
+
+            },
+            { passive: true }
+        );
+
+
+        // 指を動かす
+        categoryDiv.addEventListener(
+            "touchmove",
+            function(e) {
+
+                if (!isDragging) {
+                    return;
+                }
+
+                e.preventDefault();
+
+
+                const touch =
+                    e.touches[0];
+
+
+                const list =
+                    document.getElementById(
+                        "menuList"
+                    );
+
+
+                const otherCategories =
+                    [
+                        ...list.querySelectorAll(
+                            ".training-category:not(.dragging-touch)"
+                        )
+                    ];
+
+
+                const afterElement =
+                    otherCategories.find(
+                        function(category) {
+
+                            const box =
+                                category.getBoundingClientRect();
+
+                            return (
+                                touch.clientY <
+                                box.top +
+                                box.height / 2
+                            );
+
+                        }
+                    );
+
+
+                if (afterElement) {
+
+                    list.insertBefore(
+                        categoryDiv,
+                        afterElement
+                    );
+
+                } else {
+
+                    list.appendChild(
+                        categoryDiv
+                    );
+
+                }
+
+            },
+            { passive: false }
+        );
+
+
+        // 指を離す
+        categoryDiv.addEventListener(
+            "touchend",
+            function() {
+
+                clearTimeout(timer);
+
+
+                if (!isDragging) {
+                    return;
+                }
+
+
+                isDragging = false;
+
+
+                categoryDiv.classList.remove(
+                    "dragging-touch"
+                );
+
+
+                saveCategoryOrder();
+
+            }
+        );
+
+
+        // 長押しキャンセル
+        categoryDiv.addEventListener(
+            "touchcancel",
+            function() {
+
+                clearTimeout(timer);
+
+                isDragging = false;
+
+                categoryDiv.classList.remove(
+                    "dragging-touch"
+                );
+
+            }
+        );
+
+    });
+
+}

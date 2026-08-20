@@ -697,3 +697,17 @@ button[onclick="openMenuManager()"]:hover {
     font-size: 13px;
     color: #555;
 }
+/* ==============================
+   スマホ用ドラッグ操作
+   ========
+   ====================== */
+
+.menu-item,
+.training-category {
+    touch-action: pan-y;
+}
+
+.menu-item.dragging-touch,
+.training-category.dragging-touch {
+    opacity: 0.5;
+}
